@@ -1,0 +1,47 @@
+4a.
+CREATE TABLE tb_transactions (
+    transaction_id INT PRIMARY KEY,
+    product_id INT,
+    customer_id INT,
+    Amount DECIMAL,
+    Timestamp TIMESTAMP
+);
+
+INSERT INTO tb_transactions (transaction_id, product_id, customer_id, Amount, Timestamp)
+VALUES 
+    (1, 101, 1001, 50.00, '2023-06-01 10:00:00'),
+    (2, 102, 1002, 75.00, '2023-06-02 11:30:00'),
+    (3, 105, 1005, 30.00, '2023-06-10 15:45:00');
+
+--------------------------------------------------------------------------------------------
+
+CREATE TABLE tb_customers (
+customer_id INT PRIMARY KEY,
+fname VARCHAR,
+address VARCHAR,
+);
+
+INSERT INTO tb_customers (customer_id, fname, address)
+VALUES
+	(1001, 'Jon Snow', 'Winterfell Northern Realm', 'Westeros'),
+	(1002, 'John Doe', 'Kings Landing', 'Westeros'),
+	(1003, 'Karen Shade', 'Riverrun', 'Westeros');
+
+4b.
+SELECT AVG(Amount) AS avg_sale
+FROM tb_transactions
+WHERE Timestamp IN ('2023-06-01', '2023-06-02');
+
+4c.
+ALTER TABLE tb_transactions
+ADD FOREIGN KEY (customer_id) REFERENCES tb_customer(customer_id);
+
+4d.
+SELECT tb_customer.customer_id, 
+tb_customer.fname,
+tb_transaction.product_id, 
+tb_transaction.Amount
+tb_transaction.Timestamp
+FROM tb_transaction 
+INNER JOIN tb_customer ON tb_customer.customer_id = tb_transaction.customer_id;
+
